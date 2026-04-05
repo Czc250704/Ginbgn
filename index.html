@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>灵动抽号系统 | 幸运数字生成器</title>
+    <title>抽号器</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none; /* 避免抽号时拖动文字，不影响输入框 */
+            user-select: none; /* 避免抽号时拖动文字但是不影响输入框 */
         }
 
         body {
@@ -22,7 +22,7 @@
             padding: 1.5rem;
         }
 
-        /* 主卡片 */
+        /* 主界面大卡片 */
         .draw-container {
             max-width: 680px;
             width: 100%;
@@ -34,7 +34,7 @@
             transition: all 0.2s ease;
         }
 
-        /* 标题区 */
+        /* 标题 */
         .title {
             text-align: center;
             margin-bottom: 1.5rem;
@@ -101,7 +101,7 @@
             backdrop-filter: blur(2px);
         }
 
-        /* 控制栏栅格 */
+        /* 控制器 */
         .control-panel {
             display: flex;
             flex-wrap: wrap;
@@ -194,7 +194,7 @@
             color: white;
         }
 
-        /* 抽号主按钮 */
+        /* 抽号按钮 */
         .draw-btn-wrapper {
             display: flex;
             justify-content: center;
@@ -238,111 +238,16 @@
             background: #35406a;
         }
 
-        /* 历史区域 */
-        .history-section {
-            background: rgba(12, 16, 26, 0.6);
-            border-radius: 1.8rem;
-            padding: 1rem 0.2rem 0.8rem 0.2rem;
-            margin-top: 0.5rem;
-            backdrop-filter: blur(2px);
-        }
-        .history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 0 1rem 0.6rem 1rem;
-            border-bottom: 1px solid #2a324b;
-        }
-        .history-header span {
-            font-weight: 600;
-            color: #cbd9ff;
-            letter-spacing: 0.5px;
-        }
-        .clear-history-btn {
-            background: none;
-            border: 1px solid #45507c;
-            color: #b0c0f0;
-            padding: 0.2rem 0.9rem;
-            border-radius: 2rem;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .clear-history-btn:hover {
-            background: #2e385a;
-            color: white;
-            border-color: #7d93e0;
-        }
-        .history-list {
-            max-height: 210px;
-            overflow-y: auto;
-            padding: 0.5rem 0.8rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            align-items: center;
-        }
-        .history-badge {
-            background: linear-gradient(145deg, #1e253f, #13182c);
-            border-radius: 2rem;
-            padding: 0.4rem 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            font-family: monospace;
-            color: #dbecff;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 3px 6px rgba(0,0,0,0.2);
-            transition: 0.1s;
-            border-left: 3px solid #4c7eff;
-        }
-        .empty-history {
-            color: #4f5a82;
-            text-align: center;
-            width: 100%;
-            padding: 1.2rem;
-            font-size: 0.85rem;
-        }
-        .toast-msg {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e2746e6;
-            backdrop-filter: blur(12px);
-            color: #eff3ff;
-            padding: 0.6rem 1.5rem;
-            border-radius: 3rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            pointer-events: none;
-            z-index: 999;
-            transition: 0.2s;
-            border: 1px solid #5f7cff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        footer {
-            text-align: center;
-            font-size: 0.7rem;
-            color: #4e5a7c;
-            margin-top: 1rem;
-        }
-        @media (max-width: 580px) {
-            .draw-container { padding: 1.2rem; }
-            .draw-number { font-size: 4rem; }
-            .range-group { width: 100%; justify-content: center; }
-            .mode-switch { width: 100%; justify-content: center; margin-top: 0.3rem; }
-            .control-panel { flex-direction: column; align-items: stretch; }
-        }
     </style>
 </head>
 <body>
 
 <div class="draw-container">
     <div class="title">
-        <h1>✨ 灵 韵 抽 号 器 ✨</h1>
-        <p>随机 · 心跳 · 幸运定格</p>
+        <h1>抽号器</h1>
     </div>
 
-    <!-- 抽号显示面板 -->
+    <!-- 抽号面板 -->
     <div class="number-stage">
         <div class="draw-number" id="displayNumber">--</div>
         <div style="text-align: center; margin-top: 0.4rem;">
@@ -350,7 +255,7 @@
         </div>
     </div>
 
-    <!-- 控制区域 -->
+    <!-- 控制区 -->
     <div class="control-panel">
         <div class="range-group">
             <div class="range-item">
@@ -361,40 +266,28 @@
                 <label>至</label>
                 <input type="number" id="maxVal" value="100" step="1">
             </div>
-            <button class="apply-range-btn" id="applyRangeBtn">🎯 设定范围</button>
+            <button class="apply-range-btn" id="applyRangeBtn">设定范围</button>
         </div>
         <div class="mode-switch" id="modeSwitchArea">
             <label class="mode-option" id="normalModeLabel">
-                <input type="radio" name="drawMode" value="normal" checked> 🎲 普通模式 (可重复)
+                <input type="radio" name="drawMode" value="normal" checked> 普通模式 (可重复)
             </label>
             <label class="mode-option" id="uniqueModeLabel">
-                <input type="radio" name="drawMode" value="unique"> 🔒 唯一模式 (不重复)
+                <input type="radio" name="drawMode" value="unique"> 唯一模式 (不重复)
             </label>
         </div>
     </div>
 
     <!-- 抽号与重置按钮组 -->
     <div class="draw-btn-wrapper" style="gap: 1rem; flex-wrap: wrap;">
-        <button class="draw-btn" id="drawBtn">🎰 抽 号</button>
-        <button class="draw-btn reset-btn" id="resetSystemBtn">🔄 重置抽号</button>
+        <button class="draw-btn" id="drawBtn">抽号</button>
+        <button class="draw-btn reset-btn" id="resetSystemBtn">重置</button>
     </div>
-
-    <!-- 历史记录 -->
-    <div class="history-section">
-        <div class="history-header">
-            <span>📋 抽号历史</span>
-            <button class="clear-history-btn" id="clearHistoryBtn">清空记录</button>
-        </div>
-        <div class="history-list" id="historyList">
-            <div class="empty-history">✨ 暂无抽号记录，点击抽号 ✨</div>
-        </div>
-    </div>
-    <footer>🎯 唯一模式下，号码不重复抽取，重置后可重新开始</footer>
 </div>
 <div id="toastMessage" class="toast-msg" style="opacity:0; visibility: hidden;"></div>
 
 <script>
-    // ---------- DOM 元素 ----------
+    // DOM 元素
     const displayNumberDiv = document.getElementById('displayNumber');
     const minInput = document.getElementById('minVal');
     const maxInput = document.getElementById('maxVal');
@@ -409,12 +302,12 @@
     const normalRadio = document.querySelector('input[value="normal"]');
     const uniqueRadio = document.querySelector('input[value="unique"]');
 
-    // ---------- 全局状态 ----------
+    // 全局状态 
     let currentMin = 1;          // 当前生效的最小值
     let currentMax = 100;        // 当前生效的最大值
     let drawMode = 'normal';     // 'normal' 或 'unique'
     
-    // 唯一模式专用：剩余号码池 (数组)
+    // 唯一模式专用：剩余号码池
     let remainingNumbers = [];
     
     // 历史记录存储 { number, timestamp }
@@ -454,7 +347,7 @@
         return { min: newMin, max: newMax };
     }
     
-    // 根据当前模式与范围构建剩余池 (唯一模式重置池时调用)
+    // 根据当前模式与范围构建剩余池
     function rebuildRemainingPool() {
         if (drawMode === 'unique') {
             const totalCount = currentMax - currentMin + 1;
@@ -466,13 +359,7 @@
             for (let i = currentMin; i <= currentMax; i++) {
                 arr.push(i);
             }
-            // 洗牌? 不洗也可以，抽取时随机下标，但为了历史排除，我们还要排除已经在历史中抽过的号码
-            // 因为重置时一般会清空历史，但某些重置操作可能不清历史? 为了严谨，重置池时如果历史不为空，需排除历史中在当前范围内的号码
-            // 但调用 rebuildRemainingPool 的场景：模式切换时重置系统、点击应用范围时重置系统、重置系统按钮调用全清时
-            // 为了让唯一模式保持绝对不重复，剩余池应该排除已经抽过且还在范围内的号码（如果不清历史的情况下）
-            // 但我们的设计：唯一模式下，抽号时已经从池中移除，池子永远保持未抽中的号码，历史列表只是展示。
-            // 但是如果用户单独清空历史而不重建池，会导致池与历史不同步，所以我们禁止单独清空历史导致不同步，而清空历史按钮在唯一模式下会同时重建池（保持一致性）
-            // 但这里是一个纯构建函数：基于当前范围构建完整池，如果外部需要排除历史则单独调用，目前配合reset逻辑（清历史再建池）完美。
+          
             remainingNumbers = arr;
             updateRemainDisplay();
         } else {
@@ -503,23 +390,23 @@
         }
     }
     
-    // 普通模式随机数
+    // 普通模式
     function getRandomNormal() {
         if (currentMin > currentMax) return currentMin;
         return Math.floor(Math.random() * (currentMax - currentMin + 1)) + currentMin;
     }
     
-    // 唯一模式抽取：从剩余池中随机取一个并移除，返回号码，若无剩余返回null
+    // 唯一模式
     function drawUniqueNumber() {
         if (remainingNumbers.length === 0) return null;
         const randomIndex = Math.floor(Math.random() * remainingNumbers.length);
         const drawn = remainingNumbers[randomIndex];
-        // 移除该元素
+        // 移除元素
         remainingNumbers.splice(randomIndex, 1);
         return drawn;
     }
     
-    // 实际抽号 (不带动画) 返回抽中的号码或null(唯一模式无剩余)
+    // 实际抽号 (不带动画) 
     function performDraw() {
         if (drawMode === 'normal') {
             return getRandomNormal();
@@ -531,56 +418,28 @@
         }
     }
     
-    // 刷新历史列表UI
+    // 刷新历史列表  UI
     function renderHistory() {
         historyListDiv.innerHTML = '';
         if (historyRecords.length === 0) {
             historyListDiv.innerHTML = '<div class="empty-history">📭 暂无抽号记录，点击抽号 📭</div>';
             return;
         }
-        // 倒叙展示最新的在前面
+        // 展示最新的在前面
         const reversed = [...historyRecords].reverse();
         reversed.forEach(record => {
             const badge = document.createElement('div');
             badge.className = 'history-badge';
             badge.innerText = `${record.number}`;
-            // 可选title显示时间
+            // 可选标题    显示时间
             badge.title = record.time;
             historyListDiv.appendChild(badge);
         });
     }
     
-    // 添加历史记录
-    function addHistory(number) {
-        const now = new Date();
-        const timeStr = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
-        historyRecords.push({ number: number, time: timeStr });
-        renderHistory();
-    }
-    
-    // 清空历史（保持抽号池一致性：唯一模式下需要重建池，避免池与历史不匹配）
-    function resetHistoryOnly() {
-        historyRecords = [];
-        renderHistory();
-        // 重要: 如果当前是唯一模式，清空历史后，剩余池应当重置为完整的未抽取状态（因为历史抽中的记录已经没了，所有号码都变成未抽）
-        if (drawMode === 'unique') {
-            rebuildRemainingPool();     // 重新生成全量池
-            showToast("唯一模式历史已清空，剩余号码池已重置", 1200);
-        } else {
-            showToast("历史记录已清空", 800);
-        }
-        updateRemainDisplay();
-        // 如果唯一模式下池为空（范围极小情况）再次刷新提醒
-        if (drawMode === 'unique' && remainingNumbers.length === 0) {
-            showToast("⚠️ 当前范围无可用号码，请调整范围", 1500);
-        }
-    }
-    
-    // 重置整个系统（清空历史，重置池，根据模式重设）
+        
+    // 重置整个系统（重置池，根据模式重设）
     function fullSystemReset() {
-        // 清空历史
-        historyRecords = [];
-        renderHistory();
         // 重建池 (唯一模式会构建完整池，普通模式忽略)
         if (drawMode === 'unique') {
             rebuildRemainingPool();
@@ -635,13 +494,13 @@
             return false;
         }
         drawMode = mode;
-        // 更新radio UI
+        // 更新radio       UI
         if (mode === 'normal') {
             normalRadio.checked = true;
         } else {
             uniqueRadio.checked = true;
         }
-        // 切换模式时，重置整个抽号状态（历史清空，剩余池根据新模式和当前范围重建）
+        // 切换模式时，重置整个抽号状态
         historyRecords = [];
         renderHistory();
         if (drawMode === 'unique') {
@@ -691,9 +550,6 @@
         displayNumberDiv.classList.add('animate-shake');
         setTimeout(() => displayNumberDiv.classList.remove('animate-shake'), 250);
         
-        // 记录到历史
-        addHistory(finalNumber);
-        
         // 更新唯一模式下剩余数量显示
         if (drawMode === 'unique') {
             updateRemainDisplay();
@@ -708,7 +564,7 @@
         drawBtn.classList.remove('disabled-btn');
     }
     
-    // 开始抽号动画（滚动效果）
+    // 开始抽号动画（滚动）
     function startDrawAnimation() {
         if (isAnimating) {
             showToast("抽号进行中，请稍后...", 800);
@@ -767,7 +623,7 @@
         }, totalDuration + 80);
     }
     
-    // ----- 事件绑定 -----
+    // 事件绑定
     drawBtn.addEventListener('click', startDrawAnimation);
     resetSystemBtn.addEventListener('click', () => {
         if (isAnimating) {
