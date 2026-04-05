@@ -2,671 +2,246 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>≥È∫≈∆˜</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ÊäΩÂè∑Âô®</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none; /* ±‹√‚≥È∫≈ ±Õœ∂ØŒƒ◊÷µ´ «≤ª”∞œÏ ‰»ÎøÚ */
         }
 
         body {
             min-height: 100vh;
-            background: linear-gradient(145deg, #1a1f2e 0%, #0e121f 100%);
+            background: #e9ecef;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', 'Poppins', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
-            padding: 1.5rem;
+            justify-content: center;
+            padding: 20px;
         }
 
-        /* ÷˜ΩÁ√Ê¥Ûø®∆¨ */
-        .draw-container {
-            max-width: 680px;
+        .container {
+            max-width: 540px;
             width: 100%;
-            background: rgba(22, 28, 46, 0.75);
-            backdrop-filter: blur(4px);
-            border-radius: 3rem;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
-            padding: 1.8rem 2rem 2.2rem;
-            transition: all 0.2s ease;
+            background: #ffffff;
+            border: 1px solid #ced4da;
+            padding: 30px 28px 40px;
         }
 
-        /* ±ÍÃ‚ */
-        .title {
+        h1 {
             text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .title h1 {
+            font-weight: 500;
             font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #E6F0FF, #B2C9FF);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .title p {
-            font-size: 0.85rem;
-            color: #8e9bbe;
-            margin-top: 0.3rem;
+            letter-spacing: 1px;
+            color: #2c3e4e;
+            margin-bottom: 12px;
         }
 
-        /* ≥È∫≈’π æ«¯ (¥Û ˝◊÷) */
-        .number-stage {
-            background: radial-gradient(circle at 30% 20%, #0b0f1a, #05070f);
-            border-radius: 2.5rem;
-            padding: 1.8rem 1rem;
-            margin-bottom: 2rem;
-            box-shadow: inset 0 8px 12px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.2);
-            border: 1px solid rgba(80, 120, 255, 0.2);
-            transition: all 0.2s;
-        }
-        .draw-number {
-            font-size: 6rem;
-            font-weight: 800;
+        .sub {
             text-align: center;
-            font-family: 'Monaco', 'Courier New', 'JetBrains Mono', monospace;
-            letter-spacing: 4px;
-            color: #F2F6FF;
-            text-shadow: 0 0 8px #3e6aff, 0 4px 12px rgba(0,0,0,0.5);
-            background: linear-gradient(135deg, #ffffff, #c0d4ff);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            transition: transform 0.2s cubic-bezier(0.2, 1.2, 0.4, 1);
-        }
-        .animate-shake {
-            animation: numberPop 0.22s ease-in-out;
-        }
-        @keyframes numberPop {
-            0% { transform: scale(0.9); opacity: 0.7; text-shadow: 0 0 0px; }
-            80% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .remain-info {
-            text-align: center;
-            margin-top: 0.8rem;
-            font-size: 0.9rem;
-            background: rgba(30, 40, 60, 0.6);
+            font-size: 0.85rem;
+            color: #6c7a89;
+            margin-bottom: 32px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #dee2e6;
             display: inline-block;
             width: auto;
-            padding: 0.3rem 1.2rem;
-            border-radius: 40px;
-            color: #bfd9ff;
-            font-weight: 500;
-            backdrop-filter: blur(2px);
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* øÿ÷∆∆˜ */
-        .control-panel {
+        .range-panel {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 18px 20px;
+            margin-bottom: 32px;
             display: flex;
+            gap: 20px;
             flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2rem;
             justify-content: space-between;
-            align-items: flex-end;
         }
-        .range-group {
-            display: flex;
-            gap: 0.8rem;
-            background: #0f1322;
-            padding: 0.7rem 1.2rem;
-            border-radius: 2rem;
-            align-items: center;
-            flex-wrap: wrap;
-            flex: 2;
-            min-width: 200px;
+
+        .input-group {
+            flex: 1;
+            min-width: 110px;
         }
-        .range-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #1a1f30;
-            padding: 0.3rem 1rem;
-            border-radius: 2rem;
-        }
-        .range-item label {
-            font-size: 0.85rem;
+
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
             font-weight: 500;
-            color: #aab9e6;
+            color: #4a5b6e;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
         }
-        .range-item input {
-            width: 75px;
-            background: #0a0e18;
-            border: 1px solid #2d3755;
-            padding: 0.45rem 0.5rem;
-            border-radius: 1.5rem;
-            color: white;
-            font-weight: 600;
-            text-align: center;
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 8px;
+            border: 1px solid #ced4da;
+            background: #ffffff;
             font-size: 1rem;
+            font-family: monospace;
+            color: #1e2a36;
             outline: none;
-            transition: 0.2s;
         }
-        .range-item input:focus {
-            border-color: #4c7eff;
-            box-shadow: 0 0 0 2px rgba(76, 126, 255, 0.3);
+
+        .input-group input:focus {
+            border-color: #8c9aa8;
+            background: #fff;
         }
-        .apply-range-btn {
-            background: #2c3550;
-            border: none;
-            color: white;
-            padding: 0.5rem 1.1rem;
-            border-radius: 2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
+
+        .result-area {
+            background: #f1f3f5;
+            border: 1px solid #dee2e6;
+            padding: 28px 16px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .result-label {
             font-size: 0.85rem;
+            color: #5c6f87;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
         }
-        .apply-range-btn:hover {
-            background: #3e4a70;
-            transform: scale(0.97);
-        }
-        .mode-switch {
-            background: #0f1322;
-            padding: 0.5rem 1.2rem;
-            border-radius: 2.5rem;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-        .mode-option {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            font-size: 0.85rem;
+
+        .result-number {
+            font-size: 4.2rem;
             font-weight: 500;
-            color: #b7c3f0;
-            transition: 0.2s;
-        }
-        .mode-option input {
-            accent-color: #4c7eff;
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
-        .mode-option.active-mode {
-            color: white;
+            font-family: 'Courier New', 'SF Mono', monospace;
+            color: #2c3e4e;
+            line-height: 1.2;
+            word-break: break-word;
         }
 
-        /* ≥È∫≈∞¥≈• */
-        .draw-btn-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1.8rem;
-        }
-        .draw-btn {
-            background: linear-gradient(95deg, #3b5eff, #6f45e0);
-            border: none;
-            padding: 1rem 2.6rem;
-            font-size: 1.6rem;
-            font-weight: 800;
-            border-radius: 4rem;
-            color: white;
+        .btn-draw {
+            width: 100%;
+            background: #d4e0e9;
+            border: 1px solid #adb5bd;
+            padding: 14px 12px;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #2c3e4e;
             cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 10px 20px -5px rgba(59, 94, 255, 0.4);
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .draw-btn:active {
-            transform: scale(0.96);
-            box-shadow: 0 5px 12px rgba(59, 94, 255, 0.3);
-        }
-        .draw-btn.disabled-btn, .draw-btn:disabled {
-            opacity: 0.55;
-            transform: scale(0.98);
-            cursor: not-allowed;
-            filter: grayscale(0.1);
-            box-shadow: none;
-        }
-        .reset-btn {
-            background: #252d46;
-            box-shadow: none;
-            padding: 0.7rem 1.8rem;
-            font-size: 1rem;
-            font-weight: 600;
-        }
-        .reset-btn:hover {
-            background: #35406a;
+            transition: 0.1s linear;
+            font-family: inherit;
+            letter-spacing: 1px;
         }
 
+        .btn-draw:hover {
+            background: #cbd7e2;
+            border-color: #8c9aa8;
+        }
+
+        .btn-draw:active {
+            background: #b9c7d4;
+        }
     </style>
 </head>
 <body>
-
-<div class="draw-container">
-    <div class="title">
-        <h1>≥È∫≈∆˜</h1>
+<div class="container">
+    <h1>ÊäΩÂè∑Âô®</h1>
+    <div style="text-align: center;">
+        <div class="sub">Êï∞Â≠óËåÉÂõ¥ÊäΩÂèñ</div>
     </div>
 
-    <!-- ≥È∫≈√Ê∞Â -->
-    <div class="number-stage">
-        <div class="draw-number" id="displayNumber">--</div>
-        <div style="text-align: center; margin-top: 0.4rem;">
-            <div class="remain-info" id="remainInfo">? ∆’Õ®ƒ£ Ω</div>
+    <div class="range-panel">
+        <div class="input-group">
+            <label>ÊúÄÂ∞èÂÄº</label>
+            <input type="number" id="minValue" value="1" step="1">
+        </div>
+        <div class="input-group">
+            <label>ÊúÄÂ§ßÂÄº</label>
+            <input type="number" id="maxValue" value="100" step="1">
         </div>
     </div>
 
-    <!-- øÿ÷∆«¯ -->
-    <div class="control-panel">
-        <div class="range-group">
-            <div class="range-item">
-                <label>¥”</label>
-                <input type="number" id="minVal" value="1" step="1" min="0">
-            </div>
-            <div class="range-item">
-                <label>÷¡</label>
-                <input type="number" id="maxVal" value="100" step="1">
-            </div>
-            <button class="apply-range-btn" id="applyRangeBtn">…Ë∂®∑∂Œß</button>
-        </div>
-        <div class="mode-switch" id="modeSwitchArea">
-            <label class="mode-option" id="normalModeLabel">
-                <input type="radio" name="drawMode" value="normal" checked> ∆’Õ®ƒ£ Ω (ø…÷ÿ∏¥)
-            </label>
-            <label class="mode-option" id="uniqueModeLabel">
-                <input type="radio" name="drawMode" value="unique"> Œ®“ªƒ£ Ω (≤ª÷ÿ∏¥)
-            </label>
-        </div>
+    <div class="result-area">
+        <div class="result-label">Êú¨Ê¨°ÊäΩ‰∏≠Âè∑Á†Å</div>
+        <div class="result-number" id="resultDisplay">‚Äî</div>
     </div>
 
-    <!-- ≥È∫≈”Î÷ÿ÷√∞¥≈•◊È -->
-    <div class="draw-btn-wrapper" style="gap: 1rem; flex-wrap: wrap;">
-        <button class="draw-btn" id="drawBtn">≥È∫≈</button>
-        <button class="draw-btn reset-btn" id="resetSystemBtn">÷ÿ÷√</button>
-    </div>
+    <button class="btn-draw" id="drawBtn">ÂºÄÂßãÊäΩÂè∑</button>
 </div>
-<div id="toastMessage" class="toast-msg" style="opacity:0; visibility: hidden;"></div>
 
 <script>
-    // DOM ‘™Àÿ
-    const displayNumberDiv = document.getElementById('displayNumber');
-    const minInput = document.getElementById('minVal');
-    const maxInput = document.getElementById('maxVal');
-    const applyRangeBtn = document.getElementById('applyRangeBtn');
-    const drawBtn = document.getElementById('drawBtn');
-    const resetSystemBtn = document.getElementById('resetSystemBtn');
-    const clearHistoryBtn = document.getElementById('clearHistoryBtn');
-    const historyListDiv = document.getElementById('historyList');
-    const remainInfoSpan = document.getElementById('remainInfo');
-    
-    // ƒ£ Ω radio
-    const normalRadio = document.querySelector('input[value="normal"]');
-    const uniqueRadio = document.querySelector('input[value="unique"]');
+    (function() {
+        const minInput = document.getElementById('minValue');
+        const maxInput = document.getElementById('maxValue');
+        const drawBtn = document.getElementById('drawBtn');
+        const resultDisplay = document.getElementById('resultDisplay');
 
-    // »´æ÷◊¥Ã¨ 
-    let currentMin = 1;          // µ±«∞…˙–ßµƒ◊Ó–°÷µ
-    let currentMax = 100;        // µ±«∞…˙–ßµƒ◊Ó¥Û÷µ
-    let drawMode = 'normal';     // 'normal' ªÚ 'unique'
-    
-    // Œ®“ªƒ£ Ω◊®”√£∫ £”‡∫≈¬Î≥ÿ
-    let remainingNumbers = [];
-    
-    // ¿˙ ∑º«¬º¥Ê¥¢ { number, timestamp }
-    let historyRecords = [];
-    
-    // ∂Øª≠œ‡πÿ
-    let animationInterval = null;
-    let isAnimating = false;
-    let animationTimeout = null;
-    
-    // ∏®÷˙∫Ø ˝: œ‘ ætoastÃ· æ
-    let toastTimeout = null;
-    function showToast(message, duration = 2000) {
-        const toast = document.getElementById('toastMessage');
-        if (toastTimeout) clearTimeout(toastTimeout);
-        toast.innerText = message;
-        toast.style.visibility = 'visible';
-        toast.style.opacity = '1';
-        toastTimeout = setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.visibility = 'hidden';
-        }, duration);
-    }
-    
-    // ºÏ≤È≤¢–ﬁ’˝∑∂Œß”––ß–‘
-    function validateRange(min, max) {
-        let newMin = parseInt(min, 10);
-        let newMax = parseInt(max, 10);
-        if (isNaN(newMin)) newMin = 1;
-        if (isNaN(newMax)) newMax = 100;
-        if (newMin > newMax) {
-            [newMin, newMax] = [newMax, newMin];
+        function getValidRange() {
+            let min = parseInt(minInput.value, 10);
+            let max = parseInt(maxInput.value, 10);
+
+            if (isNaN(min)) min = 1;
+            if (isNaN(max)) max = 100;
+
+            if (min > max) {
+                const temp = min;
+                min = max;
+                max = temp;
+                minInput.value = min;
+                maxInput.value = max;
+            }
+
+            if (min === max) {
+                return { min, max, valid: true };
+            }
+
+            return { min, max, valid: true };
         }
-        if (newMin === newMax) {
-            // ‘ –Ìµ• ˝◊÷∑∂Œß
-        }
-        return { min: newMin, max: newMax };
-    }
-    
-    // ∏˘æ›µ±«∞ƒ£ Ω”Î∑∂ŒßππΩ® £”‡≥ÿ
-    function rebuildRemainingPool() {
-        if (drawMode === 'unique') {
-            const totalCount = currentMax - currentMin + 1;
-            if (totalCount <= 0) {
-                remainingNumbers = [];
+
+        function drawRandomNumber() {
+            const { min, max, valid } = getValidRange();
+            if (!valid) {
+                resultDisplay.textContent = '?';
                 return;
             }
-            const arr = [];
-            for (let i = currentMin; i <= currentMax; i++) {
-                arr.push(i);
-            }
-          
-            remainingNumbers = arr;
-            updateRemainDisplay();
-        } else {
-            // ∆’Õ®ƒ£ Ω≤ª–Ë“™≥ÿ
-            updateRemainDisplay();
-        }
-    }
-    
-    // ∏¸–¬ £”‡∫≈¬Îœ‘ æ (ΩˆŒ®“ªƒ£ Ω”– µº “‚“Â)
-    function updateRemainDisplay() {
-        if (drawMode === 'unique') {
-            const count = remainingNumbers.length;
-            const total = currentMax - currentMin + 1;
-            if (total <= 0) {
-                remainInfoSpan.innerHTML = `?? ∑∂ŒßŒﬁ–ß |  £”‡ 0 / 0`;
+
+            if (min === max) {
+                resultDisplay.textContent = min;
                 return;
             }
-            remainInfoSpan.innerHTML = `?? Œ®“ªƒ£ Ω °§  £”‡ø…≥È ${count} / ${total}`;
-            if (count === 0) {
-                remainInfoSpan.style.background = "#4a2a3a";
-                remainInfoSpan.style.color = "#ffbaba";
-            } else {
-                remainInfoSpan.style.background = "rgba(30, 40, 60, 0.7)";
-                remainInfoSpan.style.color = "#bfd9ff";
-            }
-        } else {
-            remainInfoSpan.innerHTML = `?? ∆’Õ®ƒ£ Ω °§ ∑∂Œß ${currentMin} ~ ${currentMax}`;
+
+            const range = max - min + 1;
+            const randomValue = Math.floor(Math.random() * range) + min;
+            resultDisplay.textContent = randomValue;
         }
-    }
-    
-    // ∆’Õ®ƒ£ Ω
-    function getRandomNormal() {
-        if (currentMin > currentMax) return currentMin;
-        return Math.floor(Math.random() * (currentMax - currentMin + 1)) + currentMin;
-    }
-    
-    // Œ®“ªƒ£ Ω
-    function drawUniqueNumber() {
-        if (remainingNumbers.length === 0) return null;
-        const randomIndex = Math.floor(Math.random() * remainingNumbers.length);
-        const drawn = remainingNumbers[randomIndex];
-        // “∆≥˝‘™Àÿ
-        remainingNumbers.splice(randomIndex, 1);
-        return drawn;
-    }
-    
-    //  µº ≥È∫≈ (≤ª¥¯∂Øª≠) 
-    function performDraw() {
-        if (drawMode === 'normal') {
-            return getRandomNormal();
-        } else { // unique
-            if (remainingNumbers.length === 0) {
-                return null;
-            }
-            return drawUniqueNumber();
-        }
-    }
-    
-    // À¢–¬¿˙ ∑¡–±Ì  UI
-    function renderHistory() {
-        historyListDiv.innerHTML = '';
-        if (historyRecords.length === 0) {
-            historyListDiv.innerHTML = '<div class="empty-history">?? ‘›Œﬁ≥È∫≈º«¬º£¨µ„ª˜≥È∫≈ ??</div>';
-            return;
-        }
-        // ’π æ◊Ó–¬µƒ‘⁄«∞√Ê
-        const reversed = [...historyRecords].reverse();
-        reversed.forEach(record => {
-            const badge = document.createElement('div');
-            badge.className = 'history-badge';
-            badge.innerText = `${record.number}`;
-            // ø…—°±ÍÃ‚    œ‘ æ ±º‰
-            badge.title = record.time;
-            historyListDiv.appendChild(badge);
+
+        drawBtn.addEventListener('click', function() {
+            drawRandomNumber();
         });
-    }
-    
-        
-    // ÷ÿ÷√’˚∏ˆœµÕ≥£®÷ÿ÷√≥ÿ£¨∏˘æ›ƒ£ Ω÷ÿ…Ë£©
-    function fullSystemReset() {
-        // ÷ÿΩ®≥ÿ (Œ®“ªƒ£ Ωª·ππΩ®ÕÍ’˚≥ÿ£¨∆’Õ®ƒ£ Ω∫ˆ¬‘)
-        if (drawMode === 'unique') {
-            rebuildRemainingPool();
-        }
-        updateRemainDisplay();
-        // ÷ÿ÷√œ‘ æ ˝◊÷Œ™ƒ¨»œ’ºŒª∑˚
-        displayNumberDiv.innerText = '?';
-        setTimeout(() => {
-            if (displayNumberDiv.innerText === '?') displayNumberDiv.innerText = '--';
-        }, 300);
-        showToast("œµÕ≥“—÷ÿ÷√£¨≥È∫≈≥ÿª÷∏¥≥ı º", 1000);
-        // »Áπ˚Œ®“ªƒ£ Ω≥ÿŒ™ø’«“∑∂Œß”––ß‘ÚÃ· æ
-        if (drawMode === 'unique' && remainingNumbers.length === 0 && currentMin <= currentMax) {
-            showToast("µ±«∞∑∂Œßƒ⁄Œﬁø…≥È∫≈¬Î£¨«Î¿©¥Û∑∂ŒßªÚ÷ÿ÷√", 1800);
-        }
-    }
-    
-    // ”¶”√–¬∑∂Œß (¥” ‰»ÎøÚ∂¡»°≤¢—È÷§)
-    function applyNewRange() {
-        if (isAnimating) {
-            showToast("≥È∫≈∂Øª≠÷–£¨«Î…‘∫Û‘Ÿ…Ë∂®∑∂Œß", 1000);
-            return;
-        }
-        let rawMin = parseInt(minInput.value, 10);
-        let rawMax = parseInt(maxInput.value, 10);
-        const { min, max } = validateRange(rawMin, rawMax);
-        currentMin = min;
-        currentMax = max;
-        // Õ¨≤Ω ‰»ÎøÚœ‘ æπÊ∑∂÷µ
-        minInput.value = currentMin;
-        maxInput.value = currentMax;
-        
-        // ∑∂Œß∏ƒ±‰∫Û£¨÷ÿ÷√œµÕ≥: «Âø’¿˙ ∑ + ÷ÿΩ®Œ®“ª≥ÿ
-        historyRecords = [];
-        renderHistory();
-        if (drawMode === 'unique') {
-            rebuildRemainingPool();  // »´–¬≥ÿ
-        }
-        updateRemainDisplay();
-        displayNumberDiv.innerText = '--';
-        showToast(`∑∂Œß“—∏¸–¬: ${currentMin} ~ ${currentMax}`, 1200);
-        if (drawMode === 'unique' && remainingNumbers.length === 0 && currentMin <= currentMax) {
-            showToast("◊¢“‚£∫µ±«∞∑∂Œßƒ⁄Œﬁø…≥È∫≈¬Î£¨«ÎºÏ≤È∑∂Œß", 1500);
-        }
-    }
-    
-    // ƒ£ Ω«–ªª¥¶¿Ì
-    function setMode(mode) {
-        if (mode === drawMode) return;
-        if (isAnimating) {
-            showToast("«Îµ»¥˝≥È∫≈∂Øª≠Ω· ¯∫Û«–ªªƒ£ Ω", 1000);
-            return false;
-        }
-        drawMode = mode;
-        // ∏¸–¬radio       UI
-        if (mode === 'normal') {
-            normalRadio.checked = true;
-        } else {
-            uniqueRadio.checked = true;
-        }
-        // «–ªªƒ£ Ω ±£¨÷ÿ÷√’˚∏ˆ≥È∫≈◊¥Ã¨
-        historyRecords = [];
-        renderHistory();
-        if (drawMode === 'unique') {
-            rebuildRemainingPool();
-            updateRemainDisplay();
-        } else {
-            // ∆’Õ®ƒ£ Ω«Âø’ £”‡≥ÿ∏≈ƒÓ
-            remainingNumbers = [];
-            updateRemainDisplay();
-        }
-        displayNumberDiv.innerText = '--';
-        showToast(`“—«–ªª÷¡${mode === 'normal' ? '∆’Õ®ƒ£ Ω (ø…÷ÿ∏¥)' : 'Œ®“ªƒ£ Ω (≤ª÷ÿ∏¥)'}`, 1200);
-        if (drawMode === 'unique' && remainingNumbers.length === 0 && currentMin <= currentMax) {
-            showToast("µ±«∞∑∂ŒßŒﬁ £”‡∫≈¬Î£¨«Î¿©¥Û∑∂ŒßªÚ÷ÿ÷√", 1500);
-        }
-        return true;
-    }
-    
-    // Õ£÷π∂Øª≠≤¢◊Ó÷’œ‘ æ≥È»°Ω·π˚
-    function stopAnimationAndDraw() {
-        if (!isAnimating) return;
-        if (animationInterval) {
-            clearInterval(animationInterval);
-            animationInterval = null;
-        }
-        if (animationTimeout) {
-            clearTimeout(animationTimeout);
-            animationTimeout = null;
-        }
-        isAnimating = false;
-        
-        // ’Ê’˝≥È»°∫≈¬Î
-        let finalNumber = performDraw();
-        
-        if (finalNumber === null) {
-            // Œ®“ªƒ£ ΩŒﬁ £”‡∫≈¬Î
-            displayNumberDiv.innerText = '?';
-            showToast("Œﬁ £”‡∫≈¬Î£°«Î÷ÿ÷√≥È∫≈ªÚµ˜’˚∑∂Œß", 1800);
-            // ª÷∏¥∞¥≈•
-            drawBtn.disabled = false;
-            drawBtn.classList.remove('disabled-btn');
-            return;
-        }
-        
-        // œ‘ æΩ·π˚£¨ÃÌº”∂Øª≠…¡À∏
-        displayNumberDiv.innerText = finalNumber;
-        displayNumberDiv.classList.add('animate-shake');
-        setTimeout(() => displayNumberDiv.classList.remove('animate-shake'), 250);
-        
-        // ∏¸–¬Œ®“ªƒ£ Ωœ¬ £”‡ ˝¡øœ‘ æ
-        if (drawMode === 'unique') {
-            updateRemainDisplay();
-            // »Áπ˚≥ÈÕÍ∫Û £”‡0£¨Ã· æ
-            if (remainingNumbers.length === 0) {
-                showToast("?? πßœ≤£°À˘”–∫≈¬Îæ˘“—≥ÈÕÍ£°«Î÷ÿ÷√œµÕ≥ºÃ–¯", 2000);
+
+        minInput.addEventListener('change', function() {
+            let min = parseInt(minInput.value, 10);
+            let max = parseInt(maxInput.value, 10);
+            if (isNaN(min)) min = 1;
+            if (isNaN(max)) max = 100;
+            if (min > max) {
+                maxInput.value = min;
             }
-        }
-        
-        // ∆Ù”√≥È∫≈∞¥≈•
-        drawBtn.disabled = false;
-        drawBtn.classList.remove('disabled-btn');
-    }
-    
-    // ø™ º≥È∫≈∂Øª≠£®πˆ∂Ø£©
-    function startDrawAnimation() {
-        if (isAnimating) {
-            showToast("≥È∫≈Ω¯––÷–£¨«Î…‘∫Û...", 800);
-            return;
-        }
-        
-        // «∞÷√ºÏ≤È£∫Œ®“ªƒ£ Ωœ¬»Áπ˚ £”‡≥ÿŒ™ø’£¨≤ªƒ‹≥È∫≈
-        if (drawMode === 'unique' && remainingNumbers.length === 0) {
-            showToast("? √ª”–ø…≥Èµƒ∫≈¬Î¡À£¨«Îµ„ª˜°∏÷ÿ÷√≥È∫≈°πªÚµ˜’˚∑∂Œß", 1800);
-            return;
-        }
-        // ∆’Õ®ƒ£ Ω∑∂ŒßºÏ≤È
-        if (currentMin > currentMax) {
-            showToast("∑∂ŒßŒﬁ–ß£¨«Î–ﬁ’˝◊Ó–°◊Ó¥Û÷µ", 1200);
-            return;
-        }
-        
-        // Ω˚”√≥È∫≈∞¥≈•∑¿÷π¡¨µ„
-        drawBtn.disabled = true;
-        drawBtn.classList.add('disabled-btn');
-        isAnimating = true;
-        
-        // ÀÊª˙…¡À∏ ˝◊÷µƒ∂® ±∆˜ (øÏÀŸ∏¸ªªœ‘ æ)
-        let frameCount = 0;
-        const totalDuration = 500;  // ∂Øª≠ ±≥§0.5√Î
-        const intervalTime = 60;
-        const maxSteps = Math.ceil(totalDuration / intervalTime);
-        
-        animationInterval = setInterval(() => {
-            // ¡Ÿ ±ÀÊª˙ ˝◊÷£®‘⁄∑∂Œßƒ⁄…˙≥… ”æı–ßπ˚£©
-            let tempNum;
-            if (currentMin <= currentMax) {
-                tempNum = Math.floor(Math.random() * (currentMax - currentMin + 1)) + currentMin;
-            } else {
-                tempNum = currentMin;
+            if (minInput.value !== String(min)) minInput.value = min;
+            drawRandomNumber();
+        });
+
+        maxInput.addEventListener('change', function() {
+            let min = parseInt(minInput.value, 10);
+            let max = parseInt(maxInput.value, 10);
+            if (isNaN(min)) min = 1;
+            if (isNaN(max)) max = 100;
+            if (max < min) {
+                minInput.value = max;
             }
-            displayNumberDiv.innerText = tempNum;
-            frameCount++;
-            if (frameCount >= maxSteps) {
-                // Õ£÷π∂Øª≠≤¢÷¥––◊Ó÷’≥È∫≈
-                if (animationInterval) clearInterval(animationInterval);
-                animationInterval = null;
-                stopAnimationAndDraw();
-            }
-        }, intervalTime);
-        
-        // ±£œ’≥¨ ±÷’÷π
-        animationTimeout = setTimeout(() => {
-            if (animationInterval) {
-                clearInterval(animationInterval);
-                animationInterval = null;
-            }
-            if (isAnimating) {
-                stopAnimationAndDraw();
-            }
-        }, totalDuration + 80);
-    }
-    
-    //  ¬º˛∞Û∂®
-    drawBtn.addEventListener('click', startDrawAnimation);
-    resetSystemBtn.addEventListener('click', () => {
-        if (isAnimating) {
-            showToast("∂Øª≠÷–…‘∫Û÷ÿ÷√", 800);
-            return;
-        }
-        fullSystemReset();
-    });
-    clearHistoryBtn.addEventListener('click', () => {
-        if (isAnimating) {
-            showToast("≥È∫≈∂Øª≠÷–£¨«Î…‘∫Û‘Ÿ«Âø’¿˙ ∑", 800);
-            return;
-        }
-        resetHistoryOnly();
-    });
-    applyRangeBtn.addEventListener('click', () => {
-        if (isAnimating) {
-            showToast("∂Øª≠÷–£¨«Î…‘∫Û…Ë∂®∑∂Œß", 800);
-            return;
-        }
-        applyNewRange();
-    });
-    
-    normalRadio.addEventListener('change', (e) => {
-        if (e.target.checked) setMode('normal');
-    });
-    uniqueRadio.addEventListener('change', (e) => {
-        if (e.target.checked) setMode('unique');
-    });
-    
-    // ≥ı ºªØœµÕ≥
-    function init() {
-        currentMin = 1; currentMax = 100;
-        minInput.value = 1; maxInput.value = 100;
-        drawMode = 'normal';
-        normalRadio.checked = true;
-        historyRecords = [];
-        renderHistory();
-        rebuildRemainingPool(); // ∆’Õ®ƒ£ Ωœ¬Œﬁ µº ”∞œÏ£¨µ´∫Ø ˝∞≤»´
-        updateRemainDisplay();
-        displayNumberDiv.innerText = '--';
-    }
-    init();
+            if (maxInput.value !== String(max)) maxInput.value = max;
+            drawRandomNumber();
+        });
+
+        drawRandomNumber();
+    })();
 </script>
 </body>
 </html>
